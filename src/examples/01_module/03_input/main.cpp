@@ -1,5 +1,5 @@
 //write include statements
-
+#include<iostream>
 
 //write namespace using statements
 
@@ -12,9 +12,15 @@ Display the total:
 Total: 100
 
 */
+using std::cout; using std::cin;
+
 int main() 
 {
-	
-	
+  int num;\
+  cout<<"enter a number: ";//text to screen
+  cin>>num;//capture number from keyboard
+
+  cout<<"you entered"<<num;
+  
 	return 0;
 }
