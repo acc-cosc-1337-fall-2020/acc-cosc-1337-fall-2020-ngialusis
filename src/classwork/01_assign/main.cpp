@@ -14,7 +14,7 @@ int main()
 	cout<<result;
 	int num1 = 4;
 	result= multiply_numbers(num1);
-	cout<<result;
+	cout<<"\n"<<result;
 	return 0;
 }
 
