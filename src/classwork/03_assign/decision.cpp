@@ -74,30 +74,37 @@ string get_letter_grade_using_if(int grade)
 
 string get_letter_grade_using_switch(int grade)
 {	
-	string letgrade = get_letter_grade_using_if(grade);
-	grade = get_grade_points(letgrade);
+	
+	grade = grade / 10;
 	switch(grade)
 	{
-		case 4:
+		case 10:
 		{
 			return "A";
 		}
-		case 3:
+		case 9:
+		{
+			return "A";
+		}
+		case 8:
 		{
 			return "B";
 		}
-		case 2:
+		case 7:
 		{
 			return "C";
 		}
-		case 1:
+		case 6:
 		{
 			return "D";
 		}
-		case 0:
-		{
+		case 5:
+		case 4:
+		case 3:
+		case 2:
+		case 1:
+		case 0:			
 			return "F";
-		}
 		case -1:
 		{
 			return "number out of range";
