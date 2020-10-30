@@ -19,7 +19,7 @@ public:
     string num7 = " ";
     string num8 = " ";
     string num9 = " ";
-    string board= " ";
+    string board = "";
     int choice;
     bool xoro = true;
     bool game = true;
@@ -42,4 +42,15 @@ public:
     void set_next_player();
 
     bool check_board_full();
+
+    bool game_over();
+
+    string get_winner();
+private:
+string winner = "";
+
+bool check_column_win();
+bool check_row_win();
+bool check_diagonal_win();
+void set_winner();
 };

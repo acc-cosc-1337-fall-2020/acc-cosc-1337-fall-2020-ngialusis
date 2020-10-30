@@ -7,7 +7,7 @@ void tic_tac_toe_board::start_game(string first_player)
     {
         xoro = false;
     }
-    while (!check_board_full())
+    while (!game_over())
     {
         cout << "Please enter  the next spot 1-9 ";
         cin >> choice;
@@ -144,11 +144,13 @@ void tic_tac_toe_board::start_game(string first_player)
             break;
         }
     }
+    cout<<get_winner()<<" Won! \n";
 }
 
 string tic_tac_toe_board::refresh_board()
 {
     board = num1 + " | " + num2 + " | " + num3 + "\n" + num4 + " | " + num5 + " | " + num6 + "\n" + num7 + " | " + num8 + " | " + num9 + "\n";
+    check_board_full();
     return board;
 }
 
@@ -302,7 +304,9 @@ void tic_tac_toe_board::mark_board(int pos)
 
 string tic_tac_toe_board::display_board()
 {
-    return refresh_board();
+    string bode = refresh_board();
+    cout<<bode;
+    return bode;
 }
 
 void tic_tac_toe_board::set_next_player()
@@ -321,7 +325,77 @@ bool tic_tac_toe_board::check_board_full()
 {
     if (num1 != " " && num2 != " " && num3 != " " && num4 != " " && num5 != " " && num6 != " " && num7 != " " && num8 != " " && num9 != " ")
     {
+        game=false;
         return true;
     }
     return false;
+}
+
+bool tic_tac_toe_board::game_over()
+{
+    
+    if(num1 != " " && num1 == num2 && num2 == num3)
+    {
+        set_winner();
+        return true;
+    }
+    else if(num4 != " " && num4 == num5 && num5 == num6)
+    {
+        set_winner();
+        return true;
+    }
+    else if(num7 != " " && num7 == num8 && num8 == num9)
+    {
+        set_winner();
+        return true;
+    }
+    else if(num1 != " " && num1 == num4 && num4 == num7)
+    {
+        set_winner();
+        return true;
+    }
+    else if(num2 != " " && num2 == num5 && num5 == num8)
+    {
+        set_winner();
+        return true;
+    }
+    else if(num3 != " " && num3 == num6 && num6 == num9)
+    {
+        set_winner();
+        return true;
+    }
+    else if(num1 != " " && num1 == num5 && num5 == num9)
+    {
+        set_winner();
+        return true;
+    }
+    else if(num3 != " " && num3 == num5 && num5 == num7)
+    {
+        set_winner();
+        return true;
+    }
+    else if(check_board_full())
+    {
+        set_winner();
+        return true;
+    }
+
+    return false;
+}
+
+string tic_tac_toe_board::get_winner()
+{
+    return winner;
+}
+
+void tic_tac_toe_board::set_winner()
+{
+    if(xoro)
+    {
+        winner = "o";
+    }
+    else
+    {
+        winner = "x";
+    }
 }

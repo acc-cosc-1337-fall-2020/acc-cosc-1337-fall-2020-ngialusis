@@ -3,13 +3,20 @@
 
 int main() 
 {
-	tic_tac_toe_board boardObj;
+	
 	string first = "";
-	cout<<"Enter x or o";
-	cin>>first;
-	
-	boardObj.start_game(first);	
-	
+	string contin = "";
+	do
+	{
+		cout<<"Enter x or o ";
+		cin>>first;
+		tic_tac_toe_board boardObj;
+		boardObj.start_game(first);	
+		cout<<"Play again? (y or n)\n";
+		cin>>contin;
+		
+	}
+	while(contin == "y");
 
 	return 0;
 }
