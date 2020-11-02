@@ -1,401 +1,109 @@
-//cpp
 #include "tic_tac_toe.h"
+#include<iostream>
 
-void tic_tac_toe_board::start_game(string first_player)
+bool TicTacToe::game_over()
 {
-    if (first_player == "o")
-    {
-        xoro = false;
-    }
-    while (!game_over())
-    {
-        cout << "Please enter  the next spot 1-9 ";
-        cin >> choice;
-        switch (choice)
-        {
-        case 1:
-            /* code */
-            if (xoro)
-            {
-                num1 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num1 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
+	if (check_column_win() || check_row_win() ||
+		check_diagonal_win() || check_board_full()) 
+	{
+		return true;
+	}
 
-            break;
-        case 2:
-            /* code */
-            if (xoro)
-            {
-                num2 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num2 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 3:
-            /* code */
-            if (xoro)
-            {
-                num3 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num3 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 4:
-            /* code */
-            if (xoro)
-            {
-                num4 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num4 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 5:
-            /* code */
-            if (xoro)
-            {
-                num5 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num5 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 6:
-            /* code */
-            if (xoro)
-            {
-                num6 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num6 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 7:
-            /* code */
-            if (xoro)
-            {
-                num7 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num7 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 8:
-            /* code */
-            if (xoro)
-            {
-                num8 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num8 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 9:
-            /* code */
-            if (xoro)
-            {
-                num9 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num9 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        default:
-            break;
-        }
-    }
-    cout<<get_winner()<<" Won! \n";
+	return false;
 }
 
-string tic_tac_toe_board::refresh_board()
+void TicTacToe::start_game(string player)
 {
-    board = num1 + " | " + num2 + " | " + num3 + "\n" + num4 + " | " + num5 + " | " + num6 + "\n" + num7 + " | " + num8 + " | " + num9 + "\n";
-    check_board_full();
-    return board;
+	next_player = player;
+	clear_board();
 }
 
-string tic_tac_toe_board::get_player()
+void TicTacToe::mark_board(int position)
 {
-    if (xoro)
-    {
-        return "x";
-    }
-    else
-    {
-        return "o";
-    }
+	pegs[position - 1] = next_player;
+	set_next_player();
 }
 
-void tic_tac_toe_board::mark_board(int pos)
+string TicTacToe::get_player() const
 {
-    switch (pos)
-        {
-        case 1:
-            /* code */
-            if (xoro)
-            {
-                num1 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num1 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-
-            break;
-        case 2:
-            /* code */
-            if (xoro)
-            {
-                num2 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num2 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 3:
-            /* code */
-            if (xoro)
-            {
-                num3 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num3 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 4:
-            /* code */
-            if (xoro)
-            {
-                num4 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num4 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 5:
-            /* code */
-            if (xoro)
-            {
-                num5 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num5 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 6:
-            /* code */
-            if (xoro)
-            {
-                num6 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num6 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 7:
-            /* code */
-            if (xoro)
-            {
-                num7 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num7 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 8:
-            /* code */
-            if (xoro)
-            {
-                num8 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num8 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        case 9:
-            /* code */
-            if (xoro)
-            {
-                num9 = "x";
-                xoro = false;
-            }
-            else
-            {
-                num9 = "o";
-                xoro = true;
-            }
-            cout << refresh_board();
-            break;
-        default:
-            break;
-        }
+	return next_player;
 }
 
-string tic_tac_toe_board::display_board()
+void TicTacToe::set_next_player()
 {
-    string bode = refresh_board();
-    cout<<bode;
-    return bode;
+	if (next_player == "X") 
+	{
+		next_player = "O";
+	}
+	else 
+	{
+		next_player = "X";
+	}
 }
 
-void tic_tac_toe_board::set_next_player()
+void TicTacToe::display_board()const
 {
-    if (xoro)
-    {
-        xoro = false;
-    }
-    else
-    {
-        xoro = true;
-    }
+    for (std::size_t i = 0; i < 9; i += 3) 
+	{
+		std::cout<<pegs[i]<<"|"<< pegs [i+1] <<"|"<< pegs[i+2] <<"\n";	
+	}    
 }
 
-bool tic_tac_toe_board::check_board_full()
+bool TicTacToe::check_column_win()
 {
-    if (num1 != " " && num2 != " " && num3 != " " && num4 != " " && num5 != " " && num6 != " " && num7 != " " && num8 != " " && num9 != " ")
-    {
-        game=false;
-        return true;
-    }
-    return false;
+	for (std::size_t i = 0; i < 3; i++) 
+	{
+		if (pegs[i] == pegs[i + 3] && pegs[i + 3] == pegs[i + 6]
+			&& pegs[i + 6] != " ")
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
-bool tic_tac_toe_board::game_over()
+bool TicTacToe::check_row_win()
 {
-    
-    if(num1 != " " && num1 == num2 && num2 == num3)
-    {
-        set_winner();
-        return true;
-    }
-    else if(num4 != " " && num4 == num5 && num5 == num6)
-    {
-        set_winner();
-        return true;
-    }
-    else if(num7 != " " && num7 == num8 && num8 == num9)
-    {
-        set_winner();
-        return true;
-    }
-    else if(num1 != " " && num1 == num4 && num4 == num7)
-    {
-        set_winner();
-        return true;
-    }
-    else if(num2 != " " && num2 == num5 && num5 == num8)
-    {
-        set_winner();
-        return true;
-    }
-    else if(num3 != " " && num3 == num6 && num6 == num9)
-    {
-        set_winner();
-        return true;
-    }
-    else if(num1 != " " && num1 == num5 && num5 == num9)
-    {
-        set_winner();
-        return true;
-    }
-    else if(num3 != " " && num3 == num5 && num5 == num7)
-    {
-        set_winner();
-        return true;
-    }
-    else if(check_board_full())
-    {
-        set_winner();
-        return true;
-    }
+	for (std::size_t i = 0; i < 9; i += 3) 
+	{
+		if(pegs[i] == pegs[i+1] && pegs [i+1] == pegs[i+2] && pegs[i] != " ")
+		{
+			return true;
+		}
+	}
 
-    return false;
+	return false;
 }
 
-string tic_tac_toe_board::get_winner()
+bool TicTacToe::check_diagonal_win()
 {
-    return winner;
+	if(pegs[0] == pegs[4] && pegs[4] == pegs[8] && pegs[0] != " " ||
+	   pegs[2] == pegs[4] && pegs[4] == pegs[6] && pegs[2] != " ")
+	{
+		return true;
+	}
+
+	return false;
 }
 
-void tic_tac_toe_board::set_winner()
+void TicTacToe::clear_board()
 {
-    if(xoro)
-    {
-        winner = "o";
-    }
-    else
-    {
-        winner = "x";
-    }
+	for(auto& peg: pegs)
+	{
+		peg = " ";
+	}
+}
+
+bool TicTacToe::check_board_full()
+{
+	for(auto peg: pegs)
+	{
+		if(peg == " ")
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
