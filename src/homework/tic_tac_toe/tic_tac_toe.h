@@ -19,7 +19,7 @@ public:
 	void mark_board(int position);
 	string get_player() const;
 	void display_board()const;
-
+	friend std::ostream& operator<< (std::ostream& stream, const TicTacToe& v);
 private:
 	void set_next_player();
 	bool check_column_win();

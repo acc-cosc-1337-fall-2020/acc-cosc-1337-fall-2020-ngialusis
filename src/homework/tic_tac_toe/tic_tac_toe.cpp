@@ -107,3 +107,12 @@ bool TicTacToe::check_board_full()
 
 	return true;
 }
+
+std::istream& operator>> (istream& stream, TicTacToe& v)
+{
+	
+}
+std::ostream& operator<< (std::ostream& stream, const TicTacToe& v)
+{
+	
+}
