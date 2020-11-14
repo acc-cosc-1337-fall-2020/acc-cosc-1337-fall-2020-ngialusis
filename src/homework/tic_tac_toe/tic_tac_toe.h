@@ -1,32 +1,32 @@
 #include<string>
 #include<vector>
 
-using std::string; using std::vector;
+#ifndef TIC_TAC_TOE_H
+#define TIC_TAC_TOE_H
 
-#include<iostream>
 
-using std::ostream; using std::istream;
-
-//h
-/*
-Represents one game of tic tac toe.
-*/
-class TicTacToe 
-{
-public:
-	bool game_over();
-	void start_game(string player);
-	void mark_board(int position);
-	string get_player() const;
-	void display_board()const;
-	friend std::ostream& operator<< (std::ostream& stream, const TicTacToe& v);
-private:
-	void set_next_player();
-	bool check_column_win();
-	bool check_row_win();
-	bool check_diagonal_win();
-	void clear_board();
-	bool check_board_full();
-	vector<string> pegs{ 9, " " };//initializer
-	string next_player;
+class TicTacToe {
+    public:
+        TicTacToe(int size): pegs(size*size, " ") {};
+        bool game_over();
+        void start_game(std::string first_player);
+        void mark_board(int position);
+        std::string get_player() const;
+        std::string get_winner() const;
+        friend std::ostream& operator<<(std::ostream& out, const TicTacToe& game);
+        friend std::istream& operator>>(std::istream& in, TicTacToe& game);
+    private:
+        std::string player;
+        std::string winner;
+        void set_next_player();
+        bool check_board_full();
+        void clear_board();
+        void set_winner();
+    protected:
+        std::vector<std::string> pegs;
+        virtual bool check_column_win();
+        virtual bool check_row_win();
+        virtual bool check_diagonal_win();
 };
+
+#endif
