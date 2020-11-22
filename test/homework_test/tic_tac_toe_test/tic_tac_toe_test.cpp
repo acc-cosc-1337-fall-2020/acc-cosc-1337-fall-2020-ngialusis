@@ -1,469 +1,680 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
 #include "tic_tac_toe.h"
+#include "tic_tac_toe_manager.h"
 #include "tic_tac_toe_3.h"
 #include "tic_tac_toe_4.h"
-#include<memory>
-
-using std::unique_ptr;
-using std::make_unique;
 
 TEST_CASE("Verify Test Configuration", "verification") {
 	REQUIRE(true == true);
 }
 
-TEST_CASE("Should_game_over_after_9_selections") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe3>();
-	game->start_game("X");
-	game->mark_board(2); //X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(1);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(5); //X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(6); //X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(4);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(7); //X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(8);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(9); //X
+TEST_CASE("Verify game 3x3 ends when the board is full")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe3>();
+	tic_tac_toe->start_game("X");
 
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "C");
+	tic_tac_toe->mark_board(1);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(6);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(9);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(8);
+	REQUIRE(tic_tac_toe->game_over() == true);
+	REQUIRE(tic_tac_toe->get_winner() == "T");
 }
 
-TEST_CASE("Should start game with X") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe3>();
-	game->start_game("X");
+TEST_CASE("Verify game 4x4 ends when the board is full")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	tic_tac_toe->start_game("X");
 
-	REQUIRE(game->get_player() == "X");
+	tic_tac_toe->mark_board(1);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(6);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(8);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(9);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(10);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(11);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(12);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(13);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(14);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(15);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	tic_tac_toe->mark_board(16);
+	REQUIRE(tic_tac_toe->game_over() == true);
+	REQUIRE(tic_tac_toe->get_winner() == "T");
 }
 
-TEST_CASE("Should start game with O") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe3>();
-	game->start_game("O");
+TEST_CASE("get 3x3 player function X")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe3>();
+	tic_tac_toe->start_game("X");
 
-	REQUIRE(game->get_player() == "O");
+	REQUIRE(tic_tac_toe->get_player() == "X");
 }
 
-TEST_CASE("Should win by first column") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe3>();
-	game->start_game("X");
+TEST_CASE("get 3x3 player function O")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe3>();
+	tic_tac_toe->start_game("O");
 
-	game->mark_board(1); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(4); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(7); // X
-
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	REQUIRE(tic_tac_toe->get_player() == "O");
 }
 
-TEST_CASE("Should win by second column") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe3>();
-	game->start_game("X");
+TEST_CASE("get 4x4 player function X")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(2); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(5); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(4);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(8); // X
-
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	REQUIRE(tic_tac_toe->get_player() == "X");
 }
 
-TEST_CASE("Should win by third column") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe3>();
-	game->start_game("X");
+TEST_CASE("get 4x4 player function O")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	tic_tac_toe->start_game("O");
 
-	game->mark_board(3); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(6); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(4);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(9); // X
+	REQUIRE(tic_tac_toe->get_player() == "O");
+}
+TEST_CASE("check 3x3 column 1 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe3>();
+	tic_tac_toe->start_game("X");
 
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(1);
+	REQUIRE(tic_tac_toe->game_over() == false);
+
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by first row") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe3>();
-	game->start_game("X");
+TEST_CASE("check 4x4 column 1 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(1); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(4);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(5);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3); // X
+	tic_tac_toe->mark_board(1);
+	REQUIRE(tic_tac_toe->game_over() == false);
 
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+
+	tic_tac_toe->mark_board(6);
+	REQUIRE(tic_tac_toe->game_over() == false);
+
+	tic_tac_toe->mark_board(9);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(10);
+	REQUIRE(tic_tac_toe->game_over() == false);
+
+	tic_tac_toe->mark_board(13);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by second row") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe3>();
-	game->start_game("X");
+TEST_CASE("check 3x3 column 2 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe3>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(4); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(1);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(5); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(6); // X
-
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(6);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(8);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by third row") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe3>();
-	game->start_game("X");
+TEST_CASE("check 4x4 column 2 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(7); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(1);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(8); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(9); // X
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(6);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(10);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == false);
 
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(14);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by first diagonal") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe3>();
-	game->start_game("X");
+TEST_CASE("check 3x3 column 3 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe3>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(1); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(5); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(9); // X
-
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(6);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(9);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by second diagonal") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe3>();
-	game->start_game("X");
+TEST_CASE("check 4x4 column 3 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(7); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(4);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(5); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(6);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3); // X
-
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(11);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(15);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should_game_over_after_16_selections - 4x4") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe4>();
-	game->start_game("X");
-	game->mark_board(1); //X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3); //X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(4);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(7); //X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(5);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(8); //X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(6);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(9); //X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(11);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(10); //X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(12); 
-	REQUIRE(game->game_over() == false);
-	game->mark_board(14); //X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(13);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(16); //X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(15);
+TEST_CASE("check 4x4 column 4 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	tic_tac_toe->start_game("X");
 
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "C");
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(8);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(6);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(12);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(16);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should start game with X - 4x4") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe4>();
-	game->start_game("X");
+TEST_CASE("check 3x3 row 1 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe3>();
+	tic_tac_toe->start_game("X");
 
-	REQUIRE(game->get_player() == "X");
+	tic_tac_toe->mark_board(1);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should start game with O - 4x4") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe4>();
-	game->start_game("O");
+TEST_CASE("check 4x4 row 1 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	tic_tac_toe->start_game("X");
 
-	REQUIRE(game->get_player() == "O");
+	tic_tac_toe->mark_board(1);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(6);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by first column - 4x4") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe4>();
-	game->start_game("X");
+TEST_CASE("check 3x3 row 2 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe3>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(1); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(5); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(9); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(4);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(13); //X
-
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(6);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by second column - 4x4") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe4>();
-	game->start_game("X");
+TEST_CASE("check 4x4 row 2 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(2); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(6); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(4);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(10); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(9); 
-    REQUIRE(game->game_over() == false);
-	game->mark_board(14); //X
-
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(6);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(8);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by third column - 4x4") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe4>();
-	game->start_game("X");
+TEST_CASE("check 3x3 row 3 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe3>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(3); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(7); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(4);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(11); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(9); 
-	REQUIRE(game->game_over() == false);
-	game->mark_board(15); //X
-
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(8);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(9);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by fourth column - 4x4") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe4>();
-	game->start_game("X");
+TEST_CASE("check 4x4 row 3 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(4); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(8); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(12); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(9); 
-	REQUIRE(game->game_over() == false);
-	game->mark_board(16); //X
+	tic_tac_toe->mark_board(9);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(10);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(11);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(12);
+	REQUIRE(tic_tac_toe->game_over() == true);
+}
+TEST_CASE("check 4x4 row 4 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	tic_tac_toe->start_game("X");
 
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(13);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(14);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(15);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(16);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by first row - 4x4") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe4>();
-	game->start_game("X");
+TEST_CASE("check 3x3 diagonal 1 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe3>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(1); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(5);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(6);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(7); 
-	REQUIRE(game->game_over() == false);
-	game->mark_board(4); // X
-
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(1);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(9);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by second row - 4x4") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe4>();
-	game->start_game("X");
+TEST_CASE("check 4x4 diagonal 1 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(5); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(1);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(6); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(7); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(8); // X
-
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(1);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(6);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(11);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(16);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by third row - 4x4") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe4>();
-	game->start_game("X");
+TEST_CASE("check 3x3 diagonal 2 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe3>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(9); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(1);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(10); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(11); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(12); // X
-
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by fourth row - 4x4") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe4>();
-	game->start_game("X");
+TEST_CASE("check 4x4 diagonal 2 win function")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(13); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(1);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(14); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(15); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(16); // X
-
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(8);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(10);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(13);
+	REQUIRE(tic_tac_toe->game_over() == true);
 }
 
-TEST_CASE("Should win by first diagonal - 4x4") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe4>();
-	game->start_game("X");
+TEST_CASE("Verify X as winner")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe3>();
+	TicTacToeManager manager;
+	tic_tac_toe->start_game("X");
 
-	game->mark_board(1); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(6); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(11); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(9);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(16); // X
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == true);
 
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	REQUIRE(tic_tac_toe->get_winner() == "X");
 }
 
-TEST_CASE("Should win by second diagonal - 4x4") {
-	unique_ptr<TicTacToe> game = make_unique<TicTacToe4>();
-	game->start_game("X");
+TEST_CASE("Verify O as winner")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe3>();
+	TicTacToeManager manager;
+	tic_tac_toe->start_game("O");
 
-	game->mark_board(4); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(3);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(7); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(2);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(10); // X
-	REQUIRE(game->game_over() == false);
-	game->mark_board(9);
-	REQUIRE(game->game_over() == false);
-	game->mark_board(13); // X
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == true);
 
-	REQUIRE(game->game_over() == true);
-	REQUIRE(game->get_winner() == "X");
+	REQUIRE(tic_tac_toe->get_winner() == "O");
+}
+
+TEST_CASE("Verify 4x4 X as winner")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	TicTacToeManager manager;
+	tic_tac_toe->start_game("X");
+
+	tic_tac_toe->mark_board(1);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(6);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == true);
+
+	REQUIRE(tic_tac_toe->get_winner() == "X");
+}
+
+TEST_CASE("Verify 4x4 O as winner")
+{
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	tic_tac_toe = std::make_unique<TicTacToe4>();
+	TicTacToeManager manager;
+	tic_tac_toe->start_game("O");
+
+	tic_tac_toe->mark_board(1);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(5);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(2);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(6);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(3);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(7);
+	REQUIRE(tic_tac_toe->game_over() == false);
+	
+	tic_tac_toe->mark_board(4);
+	REQUIRE(tic_tac_toe->game_over() == true);
+
+	REQUIRE(tic_tac_toe->get_winner() == "O");
 }

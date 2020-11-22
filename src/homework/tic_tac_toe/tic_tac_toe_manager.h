@@ -1,25 +1,35 @@
 //h
-#include "tic_tac_toe.h"
-#include<iostream>
-#include<string>
 #include<vector>
+#include<string>
+#include<iostream>
+#include<utility>
 #include<memory>
+#include "tic_tac_toe.h"
+#include "tic_tac_toe_data.h"
 
-#ifndef TIC_TAC_TOE_MANAGER_H 
+#ifndef TIC_TAC_TOE_MANAGER_H
 #define TIC_TAC_TOE_MANAGER_H
+
+using std::string;
+using std::vector;
 
 class TicTacToeManager
 {
-    public:
-        void save_game(std::unique_ptr<TicTacToe>& game);
-        void get_winner_totals(int& x, int& y, int& t);
-        friend std::ostream& operator<<(std::ostream& out, const TicTacToeManager& manager);
-    private:
-        std::vector<std::unique_ptr<TicTacToe>> games;
-        int x_wins{0};
-        int o_wins{0};
-        int ties{0};
-        void update_winner_account(std::string winner);
+public:
+    TicTacToeManager() = default;
+    TicTacToeManager(TicTacToeData &data);
+    ~TicTacToeManager();
+    void save_game(std::unique_ptr<TicTacToe> &b);
+    friend std::ostream& operator<<(std::ostream& out, const TicTacToeManager& manager);
+    void get_winner_total(int& X, int& O, int& T);
+    
+private:
+    vector<std::unique_ptr<TicTacToe>> games;
+    int X_win{0};
+    int O_win{0};
+    int Ties{0};
+    void update_winner_count(string winner);
+    TicTacToeData data;
 };
 
 #endif

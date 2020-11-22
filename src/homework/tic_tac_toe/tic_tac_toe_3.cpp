@@ -1,37 +1,55 @@
 #include "tic_tac_toe_3.h"
 
-bool TicTacToe3::check_column_win() {
-    if (pegs[0] != " " && pegs[0] == pegs[3] && pegs[3] == pegs[6])
-        return true;
-
-    if (pegs[1] != " " && pegs[1] == pegs[4] && pegs[4] == pegs[7])
-        return true;
-
-    if (pegs[2] != " " && pegs[2] == pegs[5] && pegs[5] == pegs[8])
-        return true;
-
+bool TicTacToe3::check_column_win() const
+{
+    for(std::size_t i=0; i < 3; ++i)
+    {
+        if(pegs[i] == "X" && pegs[i+3] == "X" && pegs[i+6] == "X")
+        {
+            return true;
+        }
+        else if(pegs[i] == "O" && pegs[i+3] == "O" && pegs[i+6] == "O")
+        {
+            return true;
+        }
+    }
     return false;
 }
 
-bool TicTacToe3::check_row_win() {
-    if (pegs[0] != " " && pegs[0] == pegs[1] && pegs[1] == pegs[2])
-        return true;
-
-    if (pegs[3] != " " && pegs[3] == pegs[4] && pegs[4] == pegs[5])
-        return true;
-
-    if (pegs[6] != " " && pegs[6] == pegs[7] && pegs[7] == pegs[8])
-        return true;
-
+bool TicTacToe3::check_row_win() const
+{
+    for(std::size_t i=0; i < 7; i += 3)
+    {
+        if(pegs[i] == "X" && pegs[i+1] == "X" && pegs[i+2] == "X")
+        {
+            return true;
+        }
+        else if(pegs[i] == "O" && pegs[i+1] == "O" && pegs[i+2] == "O")
+        {
+            return true;
+        }
+    }
     return false;
 }
 
-bool TicTacToe3::check_diagonal_win() {
-    if (pegs[0] != " " && pegs[0] == pegs[4] && pegs[4] == pegs[8])
+bool TicTacToe3::check_diagonal_win() const
+{
+    if(pegs[0] == "X" && pegs[4] == "X" && pegs[8] == "X")
+    {
         return true;
-
-    if (pegs[2] != " " && pegs[2] == pegs[4] && pegs[4] == pegs[6])
+    } 
+    else if(pegs[2] == "X" && pegs[4] == "X" && pegs[6] == "X")
+    {
         return true;
-
+    }
+    else if(pegs[0] == "O" && pegs[4] == "O" && pegs[8] == "O")
+    {
+        return true;
+    }
+    else if(pegs[6] == "O" && pegs[4] == "O" && pegs[2] == "O")
+    {
+        return true;
+    }
     return false;
 }
+

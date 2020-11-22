@@ -1,74 +1,122 @@
-#include"tic_tac_toe.h"
-#include"tic_tac_toe_3.h"
-#include"tic_tac_toe_4.h"
+#include "tic_tac_toe.h"
 #include "tic_tac_toe_manager.h"
-#include<iostream>
-#include<sstream>
+#include "tic_tac_toe_3.h"
+#include "tic_tac_toe_4.h"
+#include "tic_tac_toe_data.h"
 #include<memory>
+#include<utility>
 
 using std::cout;
 using std::cin;
-using std::string;
-using std::stringstream;
-using std::unique_ptr;
 
 int main() 
 {
-	unique_ptr<TicTacToe> game;
-	TicTacToeManager manager;
-	char doAnother;
-	bool invalid = false;
-	string firstPlayer;
+	std::unique_ptr<TicTacToe> tic_tac_toe;
+	TicTacToeData gamer;
+	TicTacToeManager manager(gamer);
 
-	do {
-		cout<<"---Welcome to Tic Tac Toe!---\n";
+	std::string player = "";
+	char yesNo;
+	int numSquare = 0;
+
+	do
+	{
+		while(player == "")
+		{
+			cout<<"Enter X or O: ";
+			cin>>player;
 		
-		int size;
-		while (size != 3 && size != 4) {
-			cout<<"Type 3 to play a 3x3, or 4 to play a 4x4\n";
-			cin>>size;
-		}
-
-		if (size == 3) {
-			game = std::make_unique<TicTacToe3>();
-		}
-		else {
-			game = std::make_unique<TicTacToe4>();
-		}
-
-		do {
-			cout<<"Enter first player (X or O): ";
-			cin>>firstPlayer;
-			if (firstPlayer != "O" && firstPlayer != "X" && firstPlayer != "Q")
+			if(player == "x" || player == "X")
 			{
-				invalid = true;
-				cout<<"Invalid input. Please try again. \n";
-				cin.clear();
+				player = "X";
 			}
-
-		}while (invalid);
-
-		if (firstPlayer == "Q")
-			break;
-
-		game->start_game(firstPlayer);
-
-		while (!game->game_over()) {
-			cin>>*game;
-			cout<<*game;
+			else if(player == "o" || player == "O")
+			{
+				player = "O";
+			}
+			else
+			{
+			  	cout<<"Invalid player!\n";
+				player = "";
+			}
 		}
 
-		cout<<" \n";
-		cout<<"Game Over! Final Board: \n";
-		cout<<*game;
-		cout<<"The winner was: "<<game->get_winner();
-		cout<<"\n";
-		manager.save_game(game);
+		while(numSquare == 0)
+		{
+			cout<<"Select 3x3 or 4x4 game (3 or 4): ";
+			
+			while (!(cin>>numSquare))
+        	{
+            	std::cout<<"Invalid Board!\n";
+            	cin.clear();
+            	cin.ignore(100, '\n');
+            	std::cout<<"Select 3x3 or 4x4 game (3 or 4): ";
+        	}
 
-		cout<<"Play Again? (enter y to continue, or any other character to exit.) \n";
-		cin>>doAnother;
-	} while(doAnother == 'y');
+			if(numSquare == 3)
+			{
+				tic_tac_toe = std::make_unique<TicTacToe3>();
+			}
+			else if(numSquare == 4)
+			{
+				tic_tac_toe = std::make_unique<TicTacToe4>();
+			}
+			else
+			{
+				cout<<"Invalid selection!\n";
+				numSquare = 0;
+			}
+			
+		}
+		tic_tac_toe->start_game(player);
+		cout<<*tic_tac_toe;
+		
 
+		do
+		{
+			cin>>*tic_tac_toe;
+			cout<<*tic_tac_toe;
+
+			if(tic_tac_toe->game_over() == false) 
+			{
+				std::cout<<"\nPlayer is: "<<tic_tac_toe->get_player()<<"\n\n";
+			}
+	
+		}while(tic_tac_toe->game_over() == false);
+		
+		cout<<"Game Over\n\n";
+		cout<<"The winner of the game is: "<<tic_tac_toe->get_winner();
+		
+		if(tic_tac_toe->get_winner() == "T")
+		{
+			cout<<"ie!\n\n";
+		}
+		else
+		{
+			cout<<"\n\n";
+		}
+
+		player = "";
+
+		int X = 0;
+		int O = 0;
+		int T = 0;
+
+		manager.save_game(tic_tac_toe);
+		manager.get_winner_total(X, O, T);
+		
+		cout<<"X wins: "<<X<<"\n";
+		cout<<"O wins: "<<O<<"\n";
+		cout<<"Ties: "<<T<<"\n\n";
+
+		cout<<"Play again? (y/n) ";
+		numSquare = 0;
+		cin>>yesNo;
+	
+	}while(yesNo == 'Y' || yesNo == 'y');
+
+	cout<<"\n";
 	cout<<manager;
-	return 0;
+	
+	return 0;	
 }
